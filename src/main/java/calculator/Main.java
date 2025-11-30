@@ -44,7 +44,7 @@ public class Main extends JFrame {
     private RoundedButton equals_button;
     private RoundedButton AC_button;
     /**
-     Launch the application.
+     Launch theapplication.
      */
     public static void main(String[] args) {
 
@@ -138,6 +138,7 @@ public class Main extends JFrame {
         panel_1.add(calc);
 
         numwrapper = new RoundJTextField(500);
+        numwrapper.setName("ResultDisplay");
         numwrapper.setHorizontalAlignment(SwingConstants.TRAILING);
         numwrapper.setEditable(false);
         numwrapper.setFont(new Font("Franklin Gothic Demi", Font.BOLD, 35));
@@ -146,6 +147,7 @@ public class Main extends JFrame {
         panel_1.add(numwrapper);
 
         holder = new RoundJTextField(10);
+        holder.setName("HolderField");
         holder.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 20));
         holder.setHorizontalAlignment(SwingConstants.LEFT);
         holder.setEditable(false);
@@ -203,6 +205,7 @@ public class Main extends JFrame {
         panel.add(DEL_button);
 
         AC_button = new RoundedButton("AC", 30, "AC");
+        AC_button.setName("AC-Button");
         AC_button.setFont(new Font("Tahoma", Font.BOLD, 17));
         AC_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -226,6 +229,7 @@ public class Main extends JFrame {
         panel.add(AC_button);
 
         RoundedButton plus_minusbutton = new RoundedButton("+/-", 30, "PM");
+        plus_minusbutton.setName("PlusMinusButton");
         plus_minusbutton.setFont(new Font("Tahoma", Font.BOLD, 17));
         plus_minusbutton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -1392,6 +1396,95 @@ public class Main extends JFrame {
         ansHolder3.setBounds(414, 0, 20, 21);
         panel.add(ansHolder3);
 
+        // Assigning names to the UI elements (for UI testing)
+        contentPane.setName("ContentPane");
+        panel.setName("MainPanel");
+        panel_1.setName("TopPanel");
+
+        equationHolder.setName("EquationHolder");
+        zValue.setName("ZField");
+        yValue.setName("YField");
+        xValue.setName("XField");
+        variableHolder.setName("VariableLabel");
+        imageHolder.setName("ImageLabel");
+        calc.setName("CalcField");
+        numwrapper.setName("ResultDisplay");
+        holder.setName("HolderField");
+
+        // Top controls / common
+        DEL_button.setName("DeleteButton");
+        AC_button.setName("AllClearButton");
+        plus_minusbutton.setName("PlusMinusButton");
+        plus_button.setName("PlusButton");
+        FLR_button.setName("FloorButton");
+        CEIL_button.setName("CeilButton");
+        INT_button.setName("IntButton");
+
+        // Digit buttons
+        seven_button.setName("SevenButton");
+        eight_button.setName("EightButton");
+        nine_button.setName("NineButton");
+        four_button.setName("FourButton");
+        five_button.setName("FiveButton");
+        six_button.setName("SixButton");
+        one_button.setName("OneButton");
+        two_button.setName("TwoButton");
+        three_button.setName("ThreeButton");
+        zero_button.setName("ZeroButton");
+        period_button.setName("PeriodButton");
+
+        // Basic operators
+        minus_button.setName("MinusButton");
+        multiplication_button.setName("MultiplyButton");
+        division_button.setName("DivideButton");
+        integerdivision_button.setName("IntegerDivisionButton");
+        modulus.setName("ModulusButton");
+        equals_button.setName("EqualsButton");
+
+        // Advanced / function buttons
+        factorial_button.setName("FactorialButton");
+        squareroot_button.setName("SqrtButton");
+        cuberoot_button.setName("CbrtButton");
+        numroot_button.setName("NumRootButton");
+        XpowerY_button.setName("XPowerYButton");
+        XpowerYpowerofZ_button.setName("XPowerYPowerZButton");
+        XpowerY.setName("XPowerY_Short");
+        XpowerC.setName("XPowerCButton");
+        productnotation_button.setName("ProductNotationButton");
+        summation_button.setName("SummationButton");
+        doublesummation_button.setName("DoubleSummationButton");
+        doubleproductnotation_button.setName("DoubleProductNotationButton");
+        doublesummation_button.setName("DoubleSummationButton");
+        integerdivision_button.setName("IntegerDivisionButton");
+        aFACTplusbFACT_button.setName("SumFactorialButton");
+        aFACTdividebFACT_button.setName("DivideFactorialButton");
+
+        // Notation / log buttons
+        logsubtwoX_button.setName("Log2Button");
+        lognumx_button.setName("LogNButton");
+        logX_button.setName("LogButton");
+
+        // Variable buttons
+        A_button.setName("AButton");
+        B_button.setName("BButton");
+        C_button.setName("CButton");
+        D_button.setName("DButton");
+        answer_button.setName("ANSButton");
+
+        // Advanced equation chooser buttons
+        XY_button.setName("XYEquationButton");
+        XplusY_button.setName("XPlusYButton");
+        XpowerY.setName("XPowerY_Button");
+        Cx_button.setName("CxButton");
+        xplusC_button.setName("XPlusCButton");
+        XpowerC.setName("XPowerC_Button");
+
+        // Misc controls
+        set_button.setName("SetButton");
+        format.setName("FormatButton");
+        ansHolder1.setName("AnswerHolder1");
+        ansHolder2.setName("AnswerHolder2");
+        ansHolder3.setName("AnswerHolder3");
 
 
         helper = new CalculatorHelper(format, calc, numwrapper, holder, zValue, yValue, xValue, imageHolder, variableHolder, lognumx_button, logsubtwoX_button, set_button, cuberoot_button, numroot_button, equationHolder, DEL_button, equals_button, AC_button);
