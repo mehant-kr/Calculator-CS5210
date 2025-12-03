@@ -1,0 +1,152 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > RoundJTextField</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">calculator</a>
+</div>
+
+<h1>Coverage Summary for Class: RoundJTextField (calculator)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RoundJTextField</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/12)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package calculator;
+&nbsp;
+&nbsp;import javax.swing.JTextField;
+&nbsp;import java.awt.*;
+&nbsp;
+&nbsp;public class RoundJTextField extends JTextField {
+&nbsp;    private static final long serialVersionUID = 1L;
+&nbsp;    private Shape shape;
+&nbsp;
+&nbsp;    public RoundJTextField(int size) {
+<b class="nc">&nbsp;        super(size);</b>
+<b class="nc">&nbsp;        setOpaque(false); // As we will paint the background</b>
+<b class="nc">&nbsp;        setBorder(null);  // Remove the border outline</b>
+<b class="nc">&nbsp;        setColumns(10);</b>
+<b class="nc">&nbsp;        setBackground(new Color(213, 178, 224));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    protected void paintComponent(Graphics g) {
+<b class="nc">&nbsp;        g.setColor(getBackground());</b>
+<b class="nc">&nbsp;        g.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 15, 15); // Making round corners</b>
+<b class="nc">&nbsp;        super.paintComponent(g);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    protected void paintBorder(Graphics g) {
+&nbsp;        // Do nothing to avoid drawing any border
+<b class="nc">&nbsp;    }</b>
+&nbsp;    @Override
+&nbsp;    public boolean contains(int x, int y) {
+<b class="nc">&nbsp;        if (shape == null || !shape.getBounds().equals(getBounds())) {</b>
+<b class="nc">&nbsp;            shape = new java.awt.geom.RoundRectangle2D.Float(0, 0, getWidth(), getHeight(), 15, 15);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return shape.contains(x, y);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-12-02 17:31</div>
+</div>
+</body>
+</html>

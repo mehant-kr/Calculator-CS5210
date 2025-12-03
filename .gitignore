@@ -13,6 +13,9 @@ target/
 *.iml
 *.ipr
 
+# HTML files (coverage reports, etc.)
+.html
+
 ### Eclipse ###
 .apt_generated
 .classpath
