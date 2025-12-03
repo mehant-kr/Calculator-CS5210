@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class FunctionsTest {
+class FunctionsUnitTest {
     /* -----------------------------------------------
      * factorial()
      * ----------------------------------------------- */
