@@ -15,8 +15,14 @@ public class CalculatorUITest {
     private FrameFixture window;
     private static final int ACTION_DELAY = 500; // Delay to let UI update
 
+    /**
+     * Sets up the test environment before each test method execution.
+     * Initializes the main calculator frame, creates the window fixture for AssertJ Swing,
+     * ensures the window is visible and in front, and waits for the UI to stabilize.
+     */
     @BeforeEach
     public void setUp() {
+
         // 1. Initialize the Main Frame safely
         Main frame = GuiActionRunner.execute(() -> new Main());
 
@@ -32,8 +38,19 @@ public class CalculatorUITest {
         // 4. Wait for window to stabilize
         window.robot().waitForIdle();
         pause(500);
+        /* NOTE: Wait is important to avoid race conditions.
+            Meaning: the program is in two parts:
+                       1. UI
+                       2. Test code
+                     run at overlapping times so the test sometimes acts before the UI has finished updating.
+                     That makes tests flaky and non-deterministic.
+         */
     }
 
+    /**
+     * Cleans up the test environment after each test method execution.
+     * Releases the screen resources used by the window fixture.
+     */
     @AfterEach
     public void tearDown() {
         try {
@@ -45,12 +62,15 @@ public class CalculatorUITest {
         }
     }
 
-    // ==========================================
-    // HELPER FUNCTIONS (To reduce code duplication)
-    // ==========================================
+    // =================
+    // HELPER FUNCTIONS
+    // =================
 
     /**
-     * Safely clicks a button using programmatic doClick (more reliable than Robot mouse)
+     * Safely clicks a button using programmatic doClick (more reliable than Robot mouse).
+     *
+     * @param buttonName The name property of the JButton to be clicked.
+     * @throws RuntimeException if the button is not found or not visible.
      */
     private void clickButton(String buttonName) {
         System.out.println("Action: Clicking '" + buttonName + "'");
@@ -75,7 +95,10 @@ public class CalculatorUITest {
     }
 
     /**
-     * Verifies the text in the main display
+     * Verifies the text in the main display text field.
+     *
+     * @param expectedText The expected string value to be present in the 'ResultDisplay'.
+     * @throws AssertionError if the actual text does not match the expected text.
      */
     private void verifyDisplay(String expectedText) {
         String actualText = GuiActionRunner.execute(() -> window.textBox("ResultDisplay").text());
@@ -91,7 +114,7 @@ public class CalculatorUITest {
     }
 
     /**
-     * Resets the calculator state
+     * Resets the calculator state to '0' by clicking the 'AllClearButton'.
      */
     private void clearCalculator() {
         System.out.println("Action: Clearing Calculator (AC)");
@@ -103,6 +126,10 @@ public class CalculatorUITest {
     // TESTS
     // ==========================================
 
+    /**
+     * Verifies basic addition functionality.
+     * Scenario: 7 + 8 = 15.
+     */
     @Test
     @DisplayName("UI Test: 7 + 8 = 15")
     public void testBasicAddition() {
@@ -123,6 +150,10 @@ public class CalculatorUITest {
         verifyDisplay("15");
     }
 
+    /**
+     * Verifies the factorial calculation functionality.
+     * Scenario: 5! = 120.
+     */
     @Test
     @DisplayName("UI Test: 5 Factorial (N!)")
     public void testFactorial() {
@@ -150,6 +181,10 @@ public class CalculatorUITest {
         verifyDisplay("120");
     }
 
+    /**
+     * Verifies the functionality of the delete (backspace) and All Clear buttons.
+     * Scenario: Type 99 -> Delete -> 9 -> All Clear -> 0.
+     */
     @Test
     @DisplayName("UI Test: Delete Button Logic")
     public void testDeleteButton() {
@@ -170,6 +205,11 @@ public class CalculatorUITest {
         verifyDisplay("0");
     }
 
+    /**
+     * Verifies the complex Product Notation workflow.
+     * Scenario: Product of 16, for n=5 to n=8.
+     * Result: 16^4 = 65,536.
+     */
     @Test
     @DisplayName("UI Test: Complex Product (Pi Notation)")
     public void testProductNotationWorkflow() {
