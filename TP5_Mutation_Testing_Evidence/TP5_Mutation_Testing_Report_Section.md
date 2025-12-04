@@ -43,6 +43,7 @@ We focused mutation testing on `calculator.Functions` because it contains comple
 | **Analysis Time** | 39 seconds | Completed successfully |
 
 **Figure 3.X.1: PITest Summary Report**
+<img width="3018" height="1592" alt="image" src="https://github.com/user-attachments/assets/ed45924b-cbfb-4b9c-8078-58d6d1a224a4" />
 
 *Caption: Main PITest report showing 70% mutation coverage, 92% test strength, and 83% line coverage for Functions.java*
 
@@ -61,6 +62,7 @@ We focused mutation testing on `calculator.Functions` because it contains comple
 *Note: MathMutator percentage calculated from 38 viable mutations (excluding 20 with no coverage)
 
 **Figure 3.X.2: Terminal Output Statistics**
+<img width="1308" height="302" alt="image" src="https://github.com/user-attachments/assets/425393f8-f73b-4a8a-b214-2207088ab446" />
 
 *Caption: Complete mutation testing execution statistics showing breakdown of mutation results*
 
