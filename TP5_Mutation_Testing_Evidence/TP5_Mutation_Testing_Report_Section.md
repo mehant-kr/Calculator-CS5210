@@ -133,7 +133,8 @@ We focused mutation testing on `calculator.Functions` because it contains comple
 **Root Cause Analysis:** Our tests verify general correctness ("does factorial(1) return 1?") but not precise boundary behavior ("does the code distinguish between n==0, n==1, and n>1 cases?"). This is a common testing antipattern where developers focus on happy path outputs rather than edge case logic.
 
 **Figure 3.X.3: Functions.java Detailed Mutation View**
-![Functions.java Line-by-Line Mutations](screenshots/functions-detailed.png)
+<img width="2000" height="2588" alt="image" src="https://github.com/user-attachments/assets/719b332b-6c22-4143-9a8c-beaf937341ae" />
+
 *Caption: Detailed line-by-line view showing green (killed) and red (survived) mutations in Functions.java*
 
 ### 3.X.3.4 Timeout Mutations (11 occurrences)
