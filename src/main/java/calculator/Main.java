@@ -883,61 +883,84 @@ public class Main extends JFrame {
         period_button.setBounds(132, 448, 94, 54);
         panel.add(period_button);
 
+        // =========================================
+//   FIXED COMPLETE BLOCK FOR "=" BUTTON
+// =========================================
         equals_button = new RoundedButton("=", 30, "EQU");
         equals_button.setFont(new Font("Tahoma", Font.BOLD, 20));
         equals_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
                 try {
-                    if(operator == null) return;
+
+                    if (operator == null) return;
+
                     String currentText = calc.getText();
 
-                    if(operator == "∑" || operator == "Π") {
-                        firstValue = A; secondValue = B;
+                    // =========================================
+                    //    COLLECT INPUT VALUES
+                    // =========================================
+                    if ("∑".equals(operator) || "Π".equals(operator)) {
+                        firstValue = A;
+                        secondValue = B;
                         thirdValue = C;
-                    } else if(operator == "∑∑" || operator == "ΠΠ") {
+                    }
+                    else if ("∑∑".equals(operator) || "ΠΠ".equals(operator)) {
                         nValue = Integer.parseInt(xValue.getText());
-                        firstValue = A; secondValue = B;
-                        thirdValue = C; fourthValue = D;
-                    } else if (operator == "log(2)(" || operator == "log(") {
+                        firstValue = A;
+                        secondValue = B;
+                        thirdValue = C;
+                        fourthValue = D;
+                    }
+                    else if ("log(2)(".equals(operator) || "log(".equals(operator)) {
                         firstValue = calc.getText();
-                    } else if (operator == "log(n)x(") {
+                    }
+                    else if ("log(n)x(".equals(operator)) {
                         firstValue = xValue.getText();
                         secondValue = calc.getText();
                     }
 
-                    if (firstValue != null) {
-                        firstDoubleValue = Double.parseDouble(firstValue);
+                    // If still null
+                    if (firstValue == null && !currentText.isEmpty()) {
+                        firstValue = currentText;
                     }
-                    if (secondValue != null) {
-                        secondDoubleValue = Double.parseDouble(secondValue);
-                    }
-                    if (thirdValue != null) {
-                        thirdDoubleValue = Double.parseDouble(thirdValue);
-                    }
-                    if (fourthValue != null) {
-                        fourthDoubleValue = Double.parseDouble(fourthValue);
-                    }
-                    switch(operator) {
+
+                    // Convert numeric values
+                    if (firstValue != null) firstDoubleValue = Double.parseDouble(firstValue);
+                    if (secondValue != null) secondDoubleValue = Double.parseDouble(secondValue);
+                    if (thirdValue != null) thirdDoubleValue = Double.parseDouble(thirdValue);
+                    if (fourthValue != null) fourthDoubleValue = Double.parseDouble(fourthValue);
+
+                    // =========================================
+                    //      COMPUTE RESULTS
+                    // =========================================
+                    switch (operator) {
+
                         case "∑":
-                            Answer = (long) Functions.summation(equation, firstDoubleValue, secondDoubleValue, thirdDoubleValue);
+                            Answer = Functions.summation(equation, firstDoubleValue, secondDoubleValue, thirdDoubleValue);
                             break;
 
                         case "∑∑":
-                            Answer = (long) Functions.doubleSummation(nValue, equation, firstDoubleValue, secondDoubleValue, thirdDoubleValue, fourthDoubleValue);
+                            Answer = Functions.doubleSummation(nValue, equation,
+                                    firstDoubleValue, secondDoubleValue, thirdDoubleValue, fourthDoubleValue);
                             break;
 
                         case "Π":
-                            Answer = (long) Functions.prodnot(equation, firstDoubleValue, secondDoubleValue, thirdDoubleValue);
+                            Answer = Functions.prodnot(equation, firstDoubleValue, secondDoubleValue, thirdDoubleValue);
                             break;
 
                         case "ΠΠ":
-                            Answer = (long) Functions.doubleProdNot(nValue, equation, firstDoubleValue, secondDoubleValue, thirdDoubleValue, fourthDoubleValue);
+                            Answer = Functions.doubleProdNot(nValue, equation,
+                                    firstDoubleValue, secondDoubleValue, thirdDoubleValue, fourthDoubleValue);
                             break;
 
                         case "N!":
-                            firstDoubleValue = Double.parseDouble(firstValue);
-                            long factorial = Functions.factorial(firstDoubleValue);
-                            Answer = factorial;
+                            if (firstDoubleValue < 0) {
+                                helper.setMathError();
+                                holder.setText("Undefined");
+                                return;
+                            }
+                            Answer = Functions.factorial((int) firstDoubleValue);
                             break;
 
                         case "a! + b!":
@@ -961,67 +984,64 @@ public class Main extends JFrame {
                             break;
 
                         case "x^y^z":
-                            firstDoubleValue = Double.parseDouble(xValue.getText());
-                            secondDoubleValue = Double.parseDouble(yValue.getText());
-                            thirdDoubleValue = Double.parseDouble(zValue.getText());
-                            holder.setText(numwrapper.getText());
-                            result =  Math.pow(thirdDoubleValue, secondDoubleValue);
-                            Answer =  Math.pow(firstDoubleValue, result);
+                            double x = Double.parseDouble(xValue.getText());
+                            double y = Double.parseDouble(yValue.getText());
+                            double z = Double.parseDouble(zValue.getText());
+                            Answer = Math.pow(x, Math.pow(y, z));
                             break;
+
                         default:
-                            if(supportedBasicEquation.contains(operator)) {
-                                if (!calc.getText().isEmpty()) {
-                                    numbers.add((Double) Double.parseDouble(calc.getText()));
-                                }
+                            if (supportedBasicEquation.contains(operator)) {
+                                if (!calc.getText().isEmpty()) numbers.add(Double.parseDouble(calc.getText()));
                                 Answer = Functions.calculateResult(numbers, operators);
                             } else {
-                                if(operator == "x^y") {
-                                    firstValue = xValue.getText();
-                                    secondValue = yValue.getText();
-                                } else if (operator == "numroot") {
-                                    firstValue = xValue.getText();
-                                    secondValue = currentText;
+                                if ("x^y".equals(operator)) {
+                                    firstDoubleValue = Double.parseDouble(xValue.getText());
+                                    secondDoubleValue = Double.parseDouble(yValue.getText());
+                                } else if ("numroot".equals(operator)) {
+                                    firstDoubleValue = Double.parseDouble(xValue.getText());
+                                    secondDoubleValue = Double.parseDouble(currentText);
                                 } else {
-                                    secondValue = currentText;
+                                    secondDoubleValue = Double.parseDouble(currentText);
                                 }
-                                firstDoubleValue = Double.parseDouble(firstValue);
-                                secondDoubleValue = Double.parseDouble(secondValue);
                                 Answer = Functions.basicCalculation(operator, firstDoubleValue, secondDoubleValue);
                             }
                     }
-                    String formattedAnswer = Functions.formatString(Answer);
+
+                    // =========================================
+                    //      FORMAT & DISPLAY RESULT
+                    // =========================================
+                    String formatted = Functions.formatString(Answer);
                     helper.setEquals();
 
-                    if(supportedBasicEquation.contains(operator)) {
+                    if (supportedBasicEquation.contains(operator))
                         holder.setText(holder.getText() + calc.getText());
-                    } else {
+                    else
                         holder.setText(numwrapper.getText());
-                    }
+
                     ANS = Answer;
 
-                    if(ah1 == 0) {
-                        ah1 = (long) ANS;
-                    } else if (ah2 == 0) {
-                        ah2 = (long) ANS;
-                    } else {
-                        ah3 = (long) ANS;
-                    }
+                    if (ah1 == 0) ah1 = (long) ANS;
+                    else if (ah2 == 0) ah2 = (long) ANS;
+                    else ah3 = (long) ANS;
 
-                    calc.setText("" + formattedAnswer);
+                    calc.setText(formatted);
+                    numwrapper.setText(formatted);
 
-                    numwrapper.setText(calc.getText());
-                    isVisible = false;
                     reset = true;
-                    firstValue = null;
-                    operators.clear();
+                    isVisible = false;
                     numbers.clear();
-                } catch (Exception error) {
-                    System.out.println(error);
-                    holder.setText("Syntax Error");
-                    return;
+                    operators.clear();
+                    firstValue = secondValue = thirdValue = fourthValue = null;
+
+                } catch (Exception ex) {
+                    helper.setSyntaxError();
                 }
             }
         });
+        equals_button.setBounds(236, 448, 198, 54);
+        panel.add(equals_button);
+
         equals_button.setBounds(236, 448, 198, 54);
         panel.add(equals_button);
 

@@ -101,7 +101,7 @@ public class CalculatorHelper {
 
     public void setSyntaxError() {
         calc.setText("");
-        holder.setText("Syntax Error");
+        holder.setText("Undefined");
         numwrapper.setText("0");
     }
 
